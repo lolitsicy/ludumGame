@@ -9,16 +9,21 @@ public class PlayerControler1 : MonoBehaviour {
 	public KeyCode moveUpKey = KeyCode.UpArrow;
 	public KeyCode moveDownKey = KeyCode.DownArrow;
 	public KeyCode jumpKey = KeyCode.Space;
-	public float jumpForce = 500f;
 	/** The magnitude of the force that the character will move horizontally when on the ground */
 	public float groundedMoveForce = 100f;
 	/** The magnitude of the force that the character will drift when moving in the air */
 	public float aerialDriftForce = 10f;
-	public float maxSpeed = 1f;
+	public float driftGravity = 0.5f;
+	public float maxSpeed = 1.0f;
+
+	public float fullChargeJumpTime = 3.0f;
+	public float fullChargeJumpForce = 2000f;
+	public float minChargeJumpForce = 200f;
 	public Transform groundCheck;
 	private bool grounded = true;
 	private int jumpCount = 0;
 	private Rigidbody2D bodyBox;
+	private float chargeTime = 0f;
 
 	[HideInInspector] public float x, y;
 	// Use this for initialization
@@ -40,8 +45,11 @@ public class PlayerControler1 : MonoBehaviour {
 				moveRightOnGround ();
 			}
 			if (Input.GetKey (jumpKey)) {
-				Debug.Log ("GROUNDED JUMP");
-				jumpFromGround ();	
+				Debug.Log ("Charging JUMP");
+				chargeJump ();
+			}
+			if (Input.GetKeyUp (jumpKey)) {
+				jumpFromGround ();
 			}
 		} else {
 			if (Input.GetKey (moveLeftKey) || Input.GetKey(moveRightKey) || Input.GetKey(moveUpKey) || Input.GetKey(moveDownKey)) {
@@ -99,7 +107,7 @@ public class PlayerControler1 : MonoBehaviour {
 
 	void moveInAir() {
 		bodyBox.AddForce (getViewDirection () * aerialDriftForce);
-		bodyBox.gravityScale = 0.5f;
+		bodyBox.gravityScale = driftGravity;
 	}
 
 	/**
@@ -116,6 +124,14 @@ public class PlayerControler1 : MonoBehaviour {
 	 * */
 	void jumpFromGround() {
 		jumpCount++;
-		bodyBox.AddForce (new Vector2 (0f, jumpForce));
+		Debug.Log ((chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce);
+		bodyBox.AddForce (new Vector2 (0f, (chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce));
+		chargeTime = 0f;
+	}
+
+	void chargeJump() {
+		if (chargeTime < fullChargeJumpTime) {
+			chargeTime += Time.deltaTime;
+		}
 	}
 }
