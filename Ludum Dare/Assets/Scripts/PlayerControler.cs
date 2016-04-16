@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControler : MonoBehaviour
-{
+public class PlayerControler : MonoBehaviour {
+	
+	public KeyCode moveRightKey = KeyCode.RightArrow;
+	public KeyCode moveLeftKey = KeyCode.LeftArrow;
+	public KeyCode jumpKey = KeyCode.UpArrow;
 	public float jumpForce = 10f;
+	/** The number of degrees a players head will rotate per second */
+	public float turnSpeed = 10f;
 	public Transform groundCheck;
 	private bool grounded = true;
 	private Rigidbody2D bodyBox;
@@ -30,64 +35,49 @@ public class PlayerControler : MonoBehaviour
 		x = jumpForce * Mathf.Cos (angle * Mathf.Deg2Rad);
 		y = jumpForce * Mathf.Sin (angle * Mathf.Deg2Rad);
 
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+		if (Input.GetKey (moveLeftKey)) {
 			moveLeft ();
 		}
 
-		if (Input.GetKey (KeyCode.RightArrow)) {
+		if (Input.GetKey (moveRightKey)) {
 			moveRight ();
 		}
-		if (Input.GetKey (KeyCode.UpArrow)) {
-				jump ();
-			
-		}
 
+		if (Input.GetKey (jumpKey)) {
+			jump ();	
+		}
 	}
 
-	void moveRight ()
-	{
+	/**
+	 * Called when the player holds down the moveRightKey.
+	 * */
+	void moveRight() {
 		if ((angle > 0 && angle < 180)) {
-			if(angle == 0){
+			if (angle == 0) {
 				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
-			}else{
+			} else {
 				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, -1f));
 
 			}
-
-		}
+		}		
 	}
 
-	void moveLeft ()
-	{
+	/**
+	 * Called when the player holds down the moveLeftKey.
+	 * */
+	void moveLeft() {
 		if (angle < 180) {
-			
+
 			obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
 		}
 	}
 
-	void jump ()
-	{
+	/**
+	 * Called when the player holds down the jumpKey.
+	 * */
+	void jump() {
+			
 		bodyBox.AddForce (new Vector2(x, y));
-
 	}
-
-	void FixedUpdate ()
-	{
-
-
-			
-	}
-
-	void Flip ()
-	{
-			
-		facingRight = !facingRight;
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
-
-	}
-
-
 
 }
