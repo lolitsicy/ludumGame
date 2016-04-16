@@ -1,0 +1,17 @@
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/obj/Debug/Assembly-CSharp.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/UnityEngine.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/UnityEditor.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Mono.Cecil.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Unity.DataContract.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/Icy/Documents/Projects/LUDUM_DARE/Ludum Dare/Temp/bin/Debug/Mono.Cecil.Mdb.dll
