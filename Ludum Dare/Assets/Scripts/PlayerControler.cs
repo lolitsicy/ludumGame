@@ -23,8 +23,7 @@ public class PlayerControler : MonoBehaviour {
 	void Start ()
 	{
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
-		angle = obj.GetComponent<Transform> ().eulerAngles.magnitude;
-		avgAngle = angle;
+		angle = obj.GetComponent<Transform> ().eulerAngles.z;
 	}
 		
 	// Update is called once per frame
@@ -40,6 +39,7 @@ public class PlayerControler : MonoBehaviour {
 		}
 
 		if (Input.GetKey (moveRightKey)) {
+			Debug.Log ("MoveRight");
 			moveRight ();
 		}
 
@@ -52,14 +52,21 @@ public class PlayerControler : MonoBehaviour {
 	 * Called when the player holds down the moveRightKey.
 	 * */
 	void moveRight() {
+		Debug.Log ("MoveRight: " + obj.GetComponent<Transform> ().eulerAngles);
 		if ((angle > 0 && angle < 180)) {
 			if (angle == 0) {
-				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
+				obj.GetComponent<Transform> ().eulerAngles = new Vector3 (0f, 0f, 0f);
 			} else {
 				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, -1f));
-
 			}
-		}		
+		} else {
+			obj.GetComponent<Transform> ().eulerAngles = new Vector3 (0f, 0f, 0f);
+		}
+//		if (angle >= 0) {
+//			obj.GetComponent<Transform> ().eulerAngles += new Vector3 (0f, 0f, -1f);
+//		} else {
+//			obj.GetComponent<Transform> ().eulerAngles = new Vector3 (0f, 0f, 1f);
+//		}
 	}
 
 	/**
@@ -69,6 +76,8 @@ public class PlayerControler : MonoBehaviour {
 		if (angle < 180) {
 
 			obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
+		} else {
+			obj.GetComponent<Transform> ().eulerAngles = new Vector3 (0f, 0f, 180f);
 		}
 	}
 

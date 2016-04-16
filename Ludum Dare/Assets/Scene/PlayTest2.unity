@@ -192,10 +192,14 @@ MonoBehaviour:
   moveUpKey: 273
   moveDownKey: 274
   jumpKey: 32
-  jumpForce: 500
   groundedMoveForce: 100
-  aerialDriftForce: 10
-  maxSpeed: 10
+  aerialDriftForce: 50
+  driftGravity: 0.5
+  maxSpeed: 2
+  fullChargeJumpTime: 3
+  fullChargeJumpForce: 6000
+  minChargeJumpForce: 500
+  aerialJumpForce: 1000
   groundCheck: {fileID: 1792812795}
   x: 0
   y: 0
@@ -449,7 +453,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 14.929317
+  orthographic size: 14.152008
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

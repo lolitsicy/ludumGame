@@ -19,6 +19,7 @@ public class PlayerControler1 : MonoBehaviour {
 	public float fullChargeJumpTime = 3.0f;
 	public float fullChargeJumpForce = 2000f;
 	public float minChargeJumpForce = 200f;
+	public float aerialJumpForce = 1000f;
 	public Transform groundCheck;
 	private bool grounded = true;
 	private int jumpCount = 0;

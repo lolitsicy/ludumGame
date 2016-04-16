@@ -164,6 +164,18 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 11449096, guid: be4c64320c0ed40c2b1aaa33491cdc0c, type: 2}
+      propertyPath: moveRightKey
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449096, guid: be4c64320c0ed40c2b1aaa33491cdc0c, type: 2}
+      propertyPath: moveLeftKey
+      value: 276
+      objectReference: {fileID: 0}
+    - target: {fileID: 11449096, guid: be4c64320c0ed40c2b1aaa33491cdc0c, type: 2}
+      propertyPath: jumpKey
+      value: 273
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be4c64320c0ed40c2b1aaa33491cdc0c, type: 2}
   m_IsPrefabParent: 0
