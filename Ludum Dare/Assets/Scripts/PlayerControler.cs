@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PlayerControler : MonoBehaviour {
+	
 	public KeyCode moveRightKey = KeyCode.RightArrow;
 	public KeyCode moveLeftKey = KeyCode.LeftArrow;
 	public KeyCode jumpKey = KeyCode.UpArrow;
@@ -10,28 +11,29 @@ public class PlayerControler : MonoBehaviour {
 	public float turnSpeed = 10f;
 	public Transform groundCheck;
 	private bool grounded = true;
-	private int jumpCount = 0;
 	private Rigidbody2D bodyBox;
 	public GameObject obj;
+	[HideInInspector] public float angle;
+	[HideInInspector] public bool facingRight = true;
+	[HideInInspector] public float x, y, chargeTime, avgAngle;
+	[HideInInspector] public Vector2 forceMagNormalize;
 
 
-	[HideInInspector] public float x, y;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
-		bodyBox.freezeRotation = true;
+		angle = obj.GetComponent<Transform> ().eulerAngles.magnitude;
+		avgAngle = angle;
 	}
-	
+		
 	// Update is called once per frame
-	void Update () {
-		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-		float angle = obj.GetComponent<Transform>().eulerAngles.magnitude;
-		x = jumpForce* Mathf.Cos (angle*Mathf.Deg2Rad);
-		y = jumpForce * Mathf.Sin (angle*Mathf.Deg2Rad);
-
-		if (grounded) {
-			jumpCount = 0;
-		}
+	void Update ()
+	{
+		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+		angle = obj.GetComponent<Transform> ().eulerAngles.magnitude;
+		x = jumpForce * Mathf.Cos (angle * Mathf.Deg2Rad);
+		y = jumpForce * Mathf.Sin (angle * Mathf.Deg2Rad);
 
 		if (Input.GetKey (moveLeftKey)) {
 			moveLeft ();
@@ -50,21 +52,32 @@ public class PlayerControler : MonoBehaviour {
 	 * Called when the player holds down the moveRightKey.
 	 * */
 	void moveRight() {
-		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,-turnSpeed * Time.deltaTime));
+		if ((angle > 0 && angle < 180)) {
+			if (angle == 0) {
+				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
+			} else {
+				obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, -1f));
+
+			}
+		}		
 	}
 
 	/**
 	 * Called when the player holds down the moveLeftKey.
 	 * */
 	void moveLeft() {
-		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,turnSpeed * Time.deltaTime));
+		if (angle < 180) {
+
+			obj.GetComponent<Transform> ().Rotate (new Vector3 (0f, 0f, 1f));
+		}
 	}
 
 	/**
 	 * Called when the player holds down the jumpKey.
 	 * */
 	void jump() {
-		jumpCount++;
-		bodyBox.AddForce (new Vector2 (x, y));
+			
+		bodyBox.AddForce (new Vector2(x, y));
 	}
+
 }
