@@ -14,7 +14,7 @@ public class PlayerControler1 : MonoBehaviour {
 	public float groundedMoveForce = 100f;
 	/** The magnitude of the force that the character will drift when moving in the air */
 	public float aerialDriftForce = 10f;
-	public float maxSpeed = 10f;
+	public float maxSpeed = 1f;
 	public Transform groundCheck;
 	private bool grounded = true;
 	private int jumpCount = 0;
@@ -81,10 +81,12 @@ public class PlayerControler1 : MonoBehaviour {
 	}
 
 	void EnforceMaxSpeed() {
-//		if (bodyBox.velocity.magnitude > maxSpeed) {
-//			bodyBox.velocity.Normalize();
-//			bodyBox.velocity = bodyBox.velocity * maxSpeed;
-//		}
+		if (bodyBox.velocity.magnitude > maxSpeed) {
+			bodyBox.velocity = bodyBox.velocity.normalized * maxSpeed;
+			if (bodyBox.velocity.magnitude > maxSpeed) {
+				Debug.Log ("lol wtf");
+			}
+		}
 	}
 
 	/**
