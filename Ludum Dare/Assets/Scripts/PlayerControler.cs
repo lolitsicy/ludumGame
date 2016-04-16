@@ -2,17 +2,16 @@
 using System.Collections;
 
 public class PlayerControler : MonoBehaviour {
-	public KeyCode moveRightKey = KeyCode.J;
-	public KeyCode moveLeftKey = KeyCode.L;
-	public KeyCode jumpKey = KeyCode.K;
+	public KeyCode moveRightKey = KeyCode.RightArrow;
+	public KeyCode moveLeftKey = KeyCode.LeftArrow;
+	public KeyCode jumpKey = KeyCode.UpArrow;
 	public float jumpForce = 10f;
-	public float moveForce = 50f;
+	/** The number of degrees a players head will rotate per second */
+	public float turnSpeed = 10f;
 	public Transform groundCheck;
 	private bool grounded = true;
 	private int jumpCount = 0;
 	private Rigidbody2D bodyBox;
-	public float moveSpeed = 10f;
-	public float turnSpeed = 50f;
 	public GameObject obj;
 
 
@@ -34,36 +33,38 @@ public class PlayerControler : MonoBehaviour {
 			jumpCount = 0;
 		}
 
-		if (Input.GetKey (KeyCode.LeftArrow)) {
+		if (Input.GetKey (moveLeftKey)) {
 			moveLeft ();
 		}
 
-		if (Input.GetKey (KeyCode.RightArrow)) {
+		if (Input.GetKey (moveRightKey)) {
 			moveRight ();
 		}
-		if (Input.GetKey (KeyCode.UpArrow)) {
+
+		if (Input.GetKey (jumpKey)) {
 			jump ();	
 		}
 	}
 
+	/**
+	 * Called when the player holds down the moveRightKey.
+	 * */
 	void moveRight() {
-		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,-10f));
+		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,-turnSpeed * Time.deltaTime));
 	}
 
+	/**
+	 * Called when the player holds down the moveLeftKey.
+	 * */
 	void moveLeft() {
-		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,10f));
+		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,turnSpeed * Time.deltaTime));
 	}
 
+	/**
+	 * Called when the player holds down the jumpKey.
+	 * */
 	void jump() {
 		jumpCount++;
-		//bodyBox.velocity.Set (bodyBox.velocity.x + x, bodyBox.velocity.y + y);
-//		bodyBox.velocity.y += y;
 		bodyBox.AddForce (new Vector2 (x, y));
-
-
 	}
-		
-
-
-
 }

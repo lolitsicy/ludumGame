@@ -40,3 +40,7 @@ Thumbs.db
 # Extra directories
 Ludum\ Dare/Temp
 Ludum\ Dare/Library
+
+# ignoring CS project files
+*.csproj
+*.sln
