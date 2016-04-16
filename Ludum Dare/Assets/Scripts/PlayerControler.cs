@@ -13,58 +13,57 @@ public class PlayerControler : MonoBehaviour {
 	private Rigidbody2D bodyBox;
 	public float moveSpeed = 10f;
 	public float turnSpeed = 50f;
-
 	public GameObject obj;
+
+
+	[HideInInspector] public float x, y;
 	// Use this for initialization
 	void Start () {
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
+		bodyBox.freezeRotation = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-//		if (grounded) {
-//			jumpCount = 0;
-//		}
-//		if (Input.GetKey (moveLeftKey) && Input.GetKeyDown (moveRightKey)) {
-//			return;
-//		}
-//		if (Input.GetKey (moveRightKey)) {
-//			moveRight ();
-//		}
-//		if (Input.GetKey (moveLeftKey)) {
-//			moveLeft ();
-//		}
-//		if (Input.GetKey (jumpKey) && jumpCount < 2) {
-//			jump ();
-//		}
+		grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 		float angle = obj.GetComponent<Transform>().eulerAngles.magnitude;
-		float x = jumpForce* Mathf.Cos (angle*Mathf.Deg2Rad);
-		float y = jumpForce * Mathf.Sin (angle*Mathf.Deg2Rad);
+		x = jumpForce* Mathf.Cos (angle*Mathf.Deg2Rad);
+		y = jumpForce * Mathf.Sin (angle*Mathf.Deg2Rad);
 
-		if (Input.GetKey (KeyCode.LeftArrow)) obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,10f));
-//			bodyBox.AddTorque (4, ForceMode2D.Force);
+		if (grounded) {
+			jumpCount = 0;
+		}
 
-		if (Input.GetKey (KeyCode.RightArrow)) obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,-10f));
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			moveLeft ();
+		}
 
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			moveRight ();
+		}
 		if (Input.GetKey (KeyCode.UpArrow)) {
-			
-			bodyBox.AddForce (new Vector2 (x, y));
-
+			jump ();	
 		}
 	}
 
 	void moveRight() {
-		bodyBox.AddForce (new Vector2 (moveForce, 0f));
+		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,-10f));
 	}
 
 	void moveLeft() {
-		bodyBox.AddForce (new Vector2 (-moveForce, 0f));
+		obj.GetComponent<Transform> ().Rotate (new Vector3 (0f,0f,10f));
 	}
 
 	void jump() {
 		jumpCount++;
-		bodyBox.AddForce (new Vector2 (0f, jumpForce));
+		//bodyBox.velocity.Set (bodyBox.velocity.x + x, bodyBox.velocity.y + y);
+//		bodyBox.velocity.y += y;
+		bodyBox.AddForce (new Vector2 (x, y));
+
+
 	}
+		
+
+
 
 }
