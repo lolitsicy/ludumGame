@@ -81,9 +81,15 @@ public class PlayerControler : MonoBehaviour {
 
 	}
 
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "wall") {
+			jumpCount -= 1;
+		}
+	}
+
 	void moveInAir() {
 		bodyBox.AddForce (getViewDirection () * aerialDriftForce);
-		//bodyBox.gravityScale = driftGravity;
+		bodyBox.gravityScale = driftGravity;
 	}
 
 	/**
@@ -124,7 +130,7 @@ public class PlayerControler : MonoBehaviour {
 
 	void moveRight2() {
 		Debug.Log ("MoveRight: " + viewPoint.eulerAngles);
-		if (angle > 0 && angle <= 180) {
+		if (angle > 0 && angle <= 360) {
 			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, -2f));
 		} else {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
@@ -134,7 +140,7 @@ public class PlayerControler : MonoBehaviour {
 
 	void moveLeft2() {
 		Debug.Log ("MoveLeft: " + viewPoint.eulerAngles);
-		if (angle >= 0 && angle < 180) {
+		if (angle >= 0 && angle < 360) {
 			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, 2f));
 		} else {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, -180f);
