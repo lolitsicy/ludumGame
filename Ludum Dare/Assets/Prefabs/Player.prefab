@@ -217,11 +217,21 @@ MonoBehaviour:
   moveLeftKey: 106
   jumpKey: 107
   jumpForce: 50
-  turnSpeed: 20
+  turnSpeed: 4
   groundCheck: {fileID: 406312}
   obj: {fileID: 197950}
+  angle: 0
+  facingRight: 1
   x: 0
   y: 0
+  jumpMag: 0
+  jumpCount: 0
+  forceMagNormalize: {x: 0, y: 0}
+  fullChargeJumpTime: 1
+  fullChargeJumpForce: 15000
+  minChargeJumpForce: 6000
+  aerialDriftForce: 10
+  driftGravity: 0.5
 --- !u!212 &21217162
 SpriteRenderer:
   m_ObjectHideFlags: 1
