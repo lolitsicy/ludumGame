@@ -13,7 +13,7 @@ public class PlayerControler1 : MonoBehaviour {
 	public float groundedMoveForce = 100f;
 	/** The magnitude of the force that the character will drift when moving in the air */
 	public float aerialDriftForce = 10f;
-	public float driftGravity = 0.5f;
+	public float driftGravity = 1.0f;
 	public float maxSpeed = 1.0f;
 
 	public float fullChargeJumpTime = 3.0f;
@@ -56,8 +56,9 @@ public class PlayerControler1 : MonoBehaviour {
 			if (Input.GetKey (moveLeftKey) || Input.GetKey(moveRightKey) || Input.GetKey(moveUpKey) || Input.GetKey(moveDownKey)) {
 				moveInAir ();
 			}
-			if (Input.GetKey (jumpKey)) {
+			if (Input.GetKeyUp (jumpKey)) {
 				Debug.Log ("Aerial Jump");
+				aerialJump ();
 			}
 		}
 	}
@@ -107,8 +108,17 @@ public class PlayerControler1 : MonoBehaviour {
 	}
 
 	void moveInAir() {
-		bodyBox.AddForce (getViewDirection () * aerialDriftForce);
+		Vector2 AerialDrift = getViewDirection ();
+		if (AerialDrift.y > 0) {
+			AerialDrift.y = 0f;
+		}
+		bodyBox.AddForce (AerialDrift * aerialDriftForce);
 		bodyBox.gravityScale = driftGravity;
+	}
+
+	/** Applying an aerial jump of half force of full jump */
+	void aerialJump() {
+		bodyBox.AddForce (getViewDirection() * (0.5f * fullChargeJumpForce));
 	}
 
 	/**

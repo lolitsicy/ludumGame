@@ -44,3 +44,4 @@ Ludum\ Dare/Library
 # ignoring CS project files
 *.csproj
 *.sln
+*.meta
