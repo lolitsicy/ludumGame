@@ -11,7 +11,7 @@ GameObject:
   - 23: {fileID: 2396884}
   - 102: {fileID: 10254032}
   - 61: {fileID: 6120264}
-  - 114: {fileID: 11418912}
+  - 114: {fileID: 11408418}
   m_Layer: 5
   m_Name: SceneTransitionButton
   m_TagString: Untagged
@@ -80,7 +80,7 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &11418912
+--- !u!114 &11408418
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 129828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7980d64a65f28d84abe3f78605055e2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e8a472be3bd44cf89f97b32107e336e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: TestScene1

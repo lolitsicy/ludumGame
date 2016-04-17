@@ -11,9 +11,9 @@ GameObject:
   - 33: {fileID: 3397016}
   - 23: {fileID: 2322928}
   - 61: {fileID: 6145044}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7, y: 1.55, z: -10}
+  m_LocalPosition: {x: -3.7, y: 1.55, z: -9}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,7 +71,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 103090}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: c1e66a54112014c18929bee97517c5a1, type: 2}
+  m_Material: {fileID: 6200000, guid: 6a105edbf0e45497f9ba509c3d02bf76, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}

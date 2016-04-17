@@ -213,19 +213,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e23a88e275ecc49a2ba15d2353764469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRightKey: 97
-  moveLeftKey: 100
+  moveRightKey: 100
+  moveLeftKey: 97
   jumpKey: 304
   turnSpeed: 4
   groundCheck: {fileID: 424326}
   obj: {fileID: 122786}
+  fullChargeJumpTime: 1
+  fullChargeJumpForce: 4000
+  minChargeJumpForce: 2000
+  maxJumpCount: 3
   x: 0
   y: 0
   jumpMag: 0
   jumpCount: 0
-  fullChargeJumpTime: 1
-  fullChargeJumpForce: 15000
-  minChargeJumpForce: 6000
 --- !u!212 &21289388
 SpriteRenderer:
   m_ObjectHideFlags: 1

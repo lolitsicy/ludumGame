@@ -3,22 +3,35 @@ using System.Collections;
 
 public class Spawn : MonoBehaviour
 {
-	public GameObject Food;
-	public float Speed;
+	/** Object which will be spawned. Preferably a prefab */
+	public GameObject objectToSpawn;
+	/** How much space should surround this object when its spawened */
+	public float clearanceRadius = 10f;
 
 	void Start()
 	{
-		InvokeRepeating("Generate", 0, Speed);
+		//Initial Spawn
+		Invoke("Generate", 0f);
+		//Uncomment to Test bounds of spawn space
+//		InvokeRepeating ("Generate", 0f, 0.5f);
 	}
 
-	void Generate()
+	public void Generate()
 	{
-		int x = Random.Range(0, Camera.main.pixelWidth);
-		int y = Random.Range(0, Camera.main.pixelHeight);
+		float x = Mathf.Round(Random.Range(10, Camera.main.pixelWidth - 10));
+		float y = Mathf.Round(Random.Range(10, Camera.main.pixelHeight - 10));
 
 		Vector3 Target = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 0));
-		Target.z = 0;
-
-		Instantiate(Food, Target, Quaternion.identity);
+		Target.x = Mathf.Round (Target.x);
+		Target.y = Mathf.Round (Target.y);
+		Target.z = 0f;
+		if (Physics.CheckSphere (Target, clearanceRadius)) {
+			Generate ();
+		} else {
+			if (Physics.CheckSphere (Target, clearanceRadius)) {
+				Generate ();
+			}
+			Instantiate(objectToSpawn, Target, Quaternion.identity);
+		}
 	}
 }

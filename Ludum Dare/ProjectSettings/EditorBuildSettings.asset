@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/Start Screen.unity
   - enabled: 1
-    path: Assets/Scene/Game Screen.unity
+    path: Assets/Scene/GameScreen.unity
   - enabled: 1
     path: Assets/Scene/GameOver.unity
