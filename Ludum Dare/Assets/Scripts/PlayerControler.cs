@@ -27,7 +27,6 @@ public class PlayerControler : MonoBehaviour {
 	private int score = 0;
 
 	/** 
-	 * AYAS
 	 * When a player eats the food call this function
 	 * */
 	void addScore(int amount) {
@@ -95,6 +94,11 @@ public class PlayerControler : MonoBehaviour {
 		if (coll.gameObject.tag == "wall") {
 			jumpCount -= 1;
 		}
+		if (coll.gameObject.tag == "food") {
+			addScore (1);
+			Destroy (coll.gameObject);
+		}
+
 	}
 	/** Get rid of this perhaps */
 	void moveInAir() {
