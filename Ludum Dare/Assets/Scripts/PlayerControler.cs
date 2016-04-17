@@ -16,9 +16,14 @@ public class PlayerControler : MonoBehaviour {
 	public GameObject obj;
 	[HideInInspector] public float angle;
 	[HideInInspector] public bool facingRight = true;
-	[HideInInspector] public float x, y, chargeTime, avgAngle;
+	[HideInInspector] public float x, y, jumpMag, jumpCount = 0;
 	[HideInInspector] public Vector2 forceMagNormalize;
-
+	public float fullChargeJumpTime = 1f;
+	public float fullChargeJumpForce = 15000f;
+	public float minChargeJumpForce = 6000f;
+	private float chargeTime = 0f;
+	public float aerialDriftForce = 10f;
+	public float driftGravity = 0.5f;
 
 	// Use this for initialization
 	void Start ()
@@ -34,21 +39,66 @@ public class PlayerControler : MonoBehaviour {
 	{
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 		angle = viewPoint.eulerAngles.magnitude;
-		x = jumpForce * Mathf.Cos (angle * Mathf.Deg2Rad);
-		y = jumpForce * Mathf.Sin (angle * Mathf.Deg2Rad);
+		x = Mathf.Cos (angle * Mathf.Deg2Rad);
+		y = Mathf.Sin (angle * Mathf.Deg2Rad);
 
-		if (Input.GetKey (moveLeftKey)) {
-			moveLeft2 ();
+		if (grounded) {
+			if (Input.GetKey (moveLeftKey)) {
+				moveLeft2 ();
+			}
+
+			if (Input.GetKey (moveRightKey)) {
+				Debug.Log ("MoveRight");
+				moveRight2 ();
+			}
+			if (Input.GetKey (jumpKey)) {
+				Debug.Log ("Charging JUMP");
+				chargeJump ();
+			}
+			if (Input.GetKeyUp (jumpKey) && jumpCount != 1) {
+				jumpFromGround ();
+			}
+
+			jumpCount = 0;
+		} else {
+			moveInAir ();
+			if (Input.GetKey (moveLeftKey)) {
+				moveLeft2 ();
+			}
+
+			if (Input.GetKey (moveRightKey)) {
+				Debug.Log ("MoveRight");
+				moveRight2 ();
+			}
+			if (Input.GetKey (jumpKey)) {
+				Debug.Log ("Charging JUMP");
+				chargeJump ();
+			}
+			if (Input.GetKeyUp (jumpKey) && jumpCount != 1) {
+				jumpFromGround ();
+			}
 		}
 
-		if (Input.GetKey (moveRightKey)) {
-			Debug.Log ("MoveRight");
-			moveRight2 ();
-		}
+	}
 
-		if (Input.GetKey (jumpKey)) {
-			jump ();	
+	void moveInAir() {
+		bodyBox.AddForce (getViewDirection () * aerialDriftForce);
+		//bodyBox.gravityScale = driftGravity;
+	}
+
+	/**
+	 * Returns the current view direction based on user input keys
+	 * */
+	public Vector2 getViewDirection() {
+		float x = 0f;
+		float y = 0f;
+		if (Input.GetKey (moveLeftKey)) { 
+			x -= 1.0f; 
 		}
+		if (Input.GetKey (moveRightKey)) { 
+			x += 1.0f;
+		}
+		return new Vector2 (x, y);
 	}
 
 	/**
@@ -60,7 +110,7 @@ public class PlayerControler : MonoBehaviour {
 			if (angle == 0) {
 				viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
 			} else {
-				viewPoint.Rotate (new Vector3 (0f, 0f, -1f));
+				viewPoint.Rotate (new Vector3 (0f, 0f, -2f));
 			}
 		} else {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
@@ -75,7 +125,7 @@ public class PlayerControler : MonoBehaviour {
 	void moveRight2() {
 		Debug.Log ("MoveRight: " + viewPoint.eulerAngles);
 		if (angle > 0 && angle <= 180) {
-			viewPoint.eulerAngles += new Vector3 (0f, 0f, -1f);
+			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, -2f));
 		} else {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
 		}
@@ -85,7 +135,7 @@ public class PlayerControler : MonoBehaviour {
 	void moveLeft2() {
 		Debug.Log ("MoveLeft: " + viewPoint.eulerAngles);
 		if (angle >= 0 && angle < 180) {
-			viewPoint.eulerAngles += new Vector3 (0f, 0f, 1f);
+			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, 2f));
 		} else {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, -180f);
 		}
@@ -110,5 +160,17 @@ public class PlayerControler : MonoBehaviour {
 		bodyBox.AddForce (new Vector2(x, y));
 	}
 
+	void jumpFromGround() {
+		jumpCount++;
+		Debug.Log ((chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce);
+		jumpMag = (chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce;
+		bodyBox.AddForce ((new Vector2 (x*jumpMag,y*jumpMag)));
+		chargeTime = 0f;
+	}
 
+	void chargeJump() {
+		if (chargeTime < fullChargeJumpTime) {
+			chargeTime += Time.deltaTime;
+		}
+	}
 }
