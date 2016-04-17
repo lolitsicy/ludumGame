@@ -34,6 +34,10 @@ public class PlayerControler : MonoBehaviour {
 		score++;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
