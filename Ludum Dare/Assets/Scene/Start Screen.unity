@@ -336,6 +336,10 @@ Prefab:
       propertyPath: m_Text
       value: Play!
       objectReference: {fileID: 0}
+    - target: {fileID: 129828, guid: 7a1f3ce81cfca304fa34acb40164c243, type: 2}
+      propertyPath: m_Name
+      value: PlayGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a1f3ce81cfca304fa34acb40164c243, type: 2}
   m_IsPrefabParent: 0
