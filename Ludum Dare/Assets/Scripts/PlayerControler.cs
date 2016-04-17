@@ -24,10 +24,20 @@ public class PlayerControler : MonoBehaviour {
 	private float chargeTime = 0f;
 	public float aerialDriftForce = 10f;
 	public float driftGravity = 0.5f;
+	private int score = 0;
+
+	/** 
+	 * AYAS
+	 * When a player eats the food call this function
+	 * */
+	void addScore(int amount) {
+		score++;
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		score = 0;
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
 		viewPoint = obj.GetComponent<Transform> ();
 		angle = viewPoint.eulerAngles.z;
@@ -44,12 +54,12 @@ public class PlayerControler : MonoBehaviour {
 
 		if (grounded) {
 			if (Input.GetKey (moveLeftKey)) {
-				moveLeft2 ();
+				moveLeft ();
 			}
 
 			if (Input.GetKey (moveRightKey)) {
 				Debug.Log ("MoveRight");
-				moveRight2 ();
+				moveRight();
 			}
 			if (Input.GetKey (jumpKey)) {
 				Debug.Log ("Charging JUMP");
@@ -63,12 +73,12 @@ public class PlayerControler : MonoBehaviour {
 		} else {
 			moveInAir ();
 			if (Input.GetKey (moveLeftKey)) {
-				moveLeft2 ();
+				moveLeft ();
 			}
 
 			if (Input.GetKey (moveRightKey)) {
 				Debug.Log ("MoveRight");
-				moveRight2 ();
+				moveRight ();
 			}
 			if (Input.GetKey (jumpKey)) {
 				Debug.Log ("Charging JUMP");
@@ -86,7 +96,7 @@ public class PlayerControler : MonoBehaviour {
 			jumpCount -= 1;
 		}
 	}
-
+	/** Get rid of this perhaps */
 	void moveInAir() {
 		bodyBox.AddForce (getViewDirection () * aerialDriftForce);
 		bodyBox.gravityScale = driftGravity;
@@ -106,29 +116,8 @@ public class PlayerControler : MonoBehaviour {
 		}
 		return new Vector2 (x, y);
 	}
-
-	/**
-	 * Called when the player holds down the moveRightKey.
-	 * */
+		
 	void moveRight() {
-		Debug.Log ("MoveRight: " + viewPoint.eulerAngles);
-		if ((angle > 0 && angle < 180)) {
-			if (angle == 0) {
-				viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
-			} else {
-				viewPoint.Rotate (new Vector3 (0f, 0f, -2f));
-			}
-		} else {
-			viewPoint.eulerAngles = new Vector3 (0f, 0f, 0f);
-		}
-//		if (angle >= 0) {
-//			obj.GetComponent<Transform> ().eulerAngles += new Vector3 (0f, 0f, -1f);
-//		} else {
-//			obj.GetComponent<Transform> ().eulerAngles = new Vector3 (0f, 0f, 1f);
-//		}
-	}
-
-	void moveRight2() {
 		Debug.Log ("MoveRight: " + viewPoint.eulerAngles);
 		if (angle > 0 && angle <= 360) {
 			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, -4f));
@@ -137,8 +126,7 @@ public class PlayerControler : MonoBehaviour {
 		}
 	}
 
-
-	void moveLeft2() {
+	void moveLeft() {
 		Debug.Log ("MoveLeft: " + viewPoint.eulerAngles);
 		if (angle >= 0 && angle < 360) {
 			viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, 4f));
@@ -146,17 +134,7 @@ public class PlayerControler : MonoBehaviour {
 			viewPoint.eulerAngles = new Vector3 (0f, 0f, -180f);
 		}
 	}
-
-	/**
-	 * Called when the player holds down the moveLeftKey.
-	 * */
-	void moveLeft() {
-		if (angle < 180) {
-			viewPoint.Rotate (new Vector3 (0f, 0f, 1f));
-		} else {
-			viewPoint.eulerAngles = new Vector3 (0f, 0f, 180f);
-		}
-	}
+		
 
 	/**
 	 * Called when the player holds down the jumpKey.
