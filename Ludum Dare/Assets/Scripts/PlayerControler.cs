@@ -24,6 +24,7 @@ public class PlayerControler : MonoBehaviour {
 	private float chargeTime = 0f;
 	public float aerialDriftForce = 10f;
 	public float driftGravity = 0.5f;
+	public string Tag;
 
 	// Use this for initialization
 	void Start ()
@@ -84,6 +85,9 @@ public class PlayerControler : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "wall") {
 			jumpCount -= 1;
+		}
+		if (coll.gameObject.tag == "food") {
+			Destroy (coll.gameObject);
 		}
 	}
 
@@ -179,4 +183,5 @@ public class PlayerControler : MonoBehaviour {
 			chargeTime += Time.deltaTime;
 		}
 	}
+		
 }
