@@ -166,7 +166,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5043120, guid: 956bb02412056a24f867fc4851301772, type: 2}
       propertyPath: m_LinearDrag
-      value: 0
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453410, guid: 956bb02412056a24f867fc4851301772, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453410, guid: 956bb02412056a24f867fc4851301772, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11425500, guid: 956bb02412056a24f867fc4851301772, type: 2}
@@ -193,16 +201,21 @@ MonoBehaviour:
   moveDownKey: 274
   jumpKey: 32
   groundedMoveForce: 100
-  aerialDriftForce: 50
-  driftGravity: 0.5
+  aerialDriftForce: 200
+  driftGravity: 1
   maxSpeed: 2
-  fullChargeJumpTime: 3
-  fullChargeJumpForce: 6000
-  minChargeJumpForce: 500
+  fullChargeJumpTime: 1
+  fullChargeJumpForce: 15000
+  minChargeJumpForce: 10000
   aerialJumpForce: 1000
   groundCheck: {fileID: 1792812795}
   x: 0
   y: 0
+--- !u!224 &643875671 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22453410, guid: 956bb02412056a24f867fc4851301772,
+    type: 2}
+  m_PrefabInternal: {fileID: 391295269}
 --- !u!1001 &1257543633
 Prefab:
   m_ObjectHideFlags: 0
@@ -405,6 +418,7 @@ GameObject:
   - 92: {fileID: 1981711253}
   - 124: {fileID: 1981711252}
   - 81: {fileID: 1981711251}
+  - 114: {fileID: 1981711256}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -479,6 +493,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1981711256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1981711250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12ce6773711a184dac860f9b59d7708, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 0.15
+  target: {fileID: 643875671}
 --- !u!1001 &2034000926
 Prefab:
   m_ObjectHideFlags: 0
