@@ -27,6 +27,7 @@ public class PlayerControler : MonoBehaviour {
 	public PlayerControler otherPlayer;
 	private float chargeTime = 0f;
 	private int score = 0;
+	private SpriteRenderer ren;
 
 	/** 
 	 * When a player eats the food call this function
@@ -42,19 +43,21 @@ public class PlayerControler : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		level = 0;
 		score = 0;
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
-		viewPoint = obj.GetComponent<Transform> ();
+		viewPoint = gameObject.GetComponent<Transform> ();
+		ren = gameObject.GetComponent<SpriteRenderer> ();
+		setChargeSprite ();
 	}
 		
 	// Update is called once per frame
 	void Update ()
 	{
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
-		float angle = viewPoint.eulerAngles.z;
+		float angle = viewPoint.eulerAngles.z + 90f;
 		x = Mathf.Cos (angle * Mathf.Deg2Rad);
 		y = Mathf.Sin (angle * Mathf.Deg2Rad);
-
 		if (Input.GetKey (moveLeftKey)) {
 			moveLeft ();
 		}
@@ -79,6 +82,8 @@ public class PlayerControler : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "wall") {
+			Debug.Log ("DRAW");
+			setChargeSprite ();
 			jumpCount -= 1;
 			if (jumpCount < 1) {
 				jumpCount = 1;
@@ -91,11 +96,15 @@ public class PlayerControler : MonoBehaviour {
 		if (coll.gameObject.tag == "hazard") {
 			otherPlayer.addScore (1);
 			score = 0;
-			Destroy (gameObject);
+			Respawn ();
 		}
 	}
-
-
+		
+	void Respawn () {
+		score = 0;
+		level = 0;
+		gameObject.GetComponent<Transform> ().position = SpawnPoint.position;
+	}
 
 	void moveRight() {
 		viewPoint.eulerAngles += (new Vector3 (0f, 0f, -turnSpeed));
@@ -110,12 +119,31 @@ public class PlayerControler : MonoBehaviour {
 		jumpMag = (chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce;
 		bodyBox.AddForce ((new Vector2 (x*jumpMag,y*jumpMag)));
 		chargeTime = 0f;
+		setJumpSprite ();
 	}
 
-	void chargeJump() {
+	public void chargeJump() {
 		if (chargeTime < fullChargeJumpTime) {
 			chargeTime += Time.deltaTime;
 		}
+	}
+
+	public void setChargeSprite() {
+		ren.sprite = Charging;
+	}
+
+	void setJumpSprite() {
+		StartCoroutine(setJumpAnim());
+	}
+
+	IEnumerator setJumpAnim() {
+		Debug.Log ("SET JUMP");
+		ren.sprite = Jumping;
+		yield return new WaitForSeconds(1);
+		setChargeSprite ();
+	}
+
+	void OnDestroy() {
 	}
 	/**
 	 * Level = 0 is base level
