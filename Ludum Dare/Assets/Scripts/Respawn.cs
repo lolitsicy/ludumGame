@@ -6,18 +6,24 @@ public class Respawn : MonoBehaviour {
 	public GameObject spawnerObject;
 	private Spawn spawner;
 	void Start() {
-		spawner = spawnerObject.GetComponent<Spawn> ();
+		spawner = Camera.main.GetComponent<Spawn> ();
 		if (spawner == null) {
-			Debug.Log ("Respawn.cs: Invalid spawnerObject assignment");
+			Debug.Log ("Main Camera does not hold the Spawn.cs script");
 		}
 	}
 	/** Literally the only thing we care about for this object */
 	void OnDestroy() {
+		spawner = Camera.main.GetComponent<Spawn> ();
+		if (spawner == null) {
+			Debug.Log ("Main Camera does not hold the Spawn.cs script");
+		}
 		spawner.Generate ();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
+		Debug.Log ("HIT");
 		if (coll.gameObject.tag == "food" || coll.gameObject.tag == "wall") {
+			Debug.Log ("Spawn ERROR");
 			Destroy (gameObject);
 		}
 

@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Editor/AutoSnap.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawn.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerControler.cs" Line="15" Column="23" />
-      <File FileName="Assets/Editor/AutoSnap.cs" Line="6" Column="31" />
+      <File FileName="Assets/Scripts/PlayerControler.cs" Line="83" Column="3" />
+      <File FileName="Assets/Editor/AutoSnap.cs" Line="24" Column="22" />
+      <File FileName="Assets/Scripts/Spawn.cs" Line="18" Column="2" />
+      <File FileName="Assets/Scripts/Respawn.cs" Line="19" Column="25" />
+      <File FileName="Assets/Scripts/ToScene.cs" Line="8" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

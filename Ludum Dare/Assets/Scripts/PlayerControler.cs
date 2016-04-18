@@ -97,7 +97,6 @@ public class PlayerControler : MonoBehaviour {
 
 	void jump() {
 		jumpCount++;
-		Debug.Log ((chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce);
 		jumpMag = (chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce;
 		bodyBox.AddForce ((new Vector2 (x*jumpMag,y*jumpMag)));
 		chargeTime = 0f;
