@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 432870}
   - 212: {fileID: 21257336}
-  - 114: {fileID: 11415208}
   - 58: {fileID: 5888564}
-  m_Layer: 0
+  - 114: {fileID: 11415208}
+  m_Layer: 10
   m_Name: Food
   m_TagString: food
   m_Icon: {fileID: 0}

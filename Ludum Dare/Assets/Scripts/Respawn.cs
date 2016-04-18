@@ -21,9 +21,7 @@ public class Respawn : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
-		Debug.Log ("HIT");
 		if (coll.gameObject.tag == "food" || coll.gameObject.tag == "wall") {
-			Debug.Log ("Spawn ERROR");
 			Destroy (gameObject);
 		}
 
