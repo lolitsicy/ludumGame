@@ -26,7 +26,10 @@ public class PlayerControler : MonoBehaviour {
 	[HideInInspector] public float x, y, jumpMag, jumpCount = 0;
 	public PlayerControler otherPlayer;
 	private float chargeTime = 0f;
-	private int score = 0;
+	private int score;
+	public int levelUpScore;
+	public PhysicsMaterial2D bouncy;
+	public PhysicsMaterial2D slippery;
 
 	/** 
 	 * When a player eats the food call this function
@@ -43,6 +46,7 @@ public class PlayerControler : MonoBehaviour {
 	void Start ()
 	{
 		score = 0;
+		levelUpScore = 0;
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
 		viewPoint = obj.GetComponent<Transform> ();
 	}
@@ -74,7 +78,7 @@ public class PlayerControler : MonoBehaviour {
 		if (Input.GetKeyUp (jumpKey) && jumpCount < maxJumpCount) {
 			jump ();
 		}
-
+		Upgrade ();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -123,6 +127,25 @@ public class PlayerControler : MonoBehaviour {
 	 * Level = 2 is final level
 	 * */
 	void Upgrade() {
+		if (score%levelUpScore == 0) {
+			level++;
+		}
 
+		switch (level) {
+
+		case 0:
+			gameObject.GetComponent<BoxCollider2D> ().sharedMaterial = bouncy;
+			Debug.Log ("BOUNCY");
+			break;
+		case 1: 
+			gameObject.GetComponent<BoxCollider2D> ().sharedMaterial = bouncy;
+			Debug.Log ("SLIP");
+			break;
+		case 2:
+			maxJumpCount = 4;
+			Debug.Log ("J");
+			break;
+
+		}
 	}
 }
