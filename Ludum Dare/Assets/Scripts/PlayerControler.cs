@@ -94,11 +94,11 @@ public class PlayerControler : MonoBehaviour {
 
 
 	void moveRight() {
-		viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, -turnSpeed));
+		viewPoint.eulerAngles += (new Vector3 (0f, 0f, -turnSpeed));
 	}
 
 	void moveLeft() {
-		viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, turnSpeed));
+		viewPoint.eulerAngles += (new Vector3 (0f, 0f, turnSpeed));
 	}
 
 	void jump() {
