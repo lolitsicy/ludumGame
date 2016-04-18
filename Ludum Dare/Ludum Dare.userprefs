@@ -1,18 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Spawn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerControler.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerControler.cs" Line="83" Column="3" />
-      <File FileName="Assets/Editor/AutoSnap.cs" Line="24" Column="22" />
-      <File FileName="Assets/Scripts/Spawn.cs" Line="18" Column="2" />
-      <File FileName="Assets/Scripts/Respawn.cs" Line="19" Column="25" />
-      <File FileName="Assets/Scripts/ToScene.cs" Line="8" Column="21" />
+      <File FileName="Assets/Scripts/PlayerControler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Spawn.cs" Line="8" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/fia/arran/Unity/ludumGame/Ludum Dare/Assets/Editor/autoSnap.cs" line="5" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
