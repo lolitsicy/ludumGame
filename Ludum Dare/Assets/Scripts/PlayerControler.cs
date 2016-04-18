@@ -16,6 +16,10 @@ public class PlayerControler : MonoBehaviour {
 	public float minChargeJumpForce = 6000f;
 	/** Number of jumps a player can take without touching the wall or the ground */
 	public int maxJumpCount = 2;
+	public Sprite Charging;
+	public Sprite Jumping;
+	public Transform SpawnPoint;
+	public int level = 0;
 	private bool grounded = true;
 	private Rigidbody2D bodyBox;
 	private Transform viewPoint;
@@ -112,5 +116,13 @@ public class PlayerControler : MonoBehaviour {
 		if (chargeTime < fullChargeJumpTime) {
 			chargeTime += Time.deltaTime;
 		}
+	}
+	/**
+	 * Level = 0 is base level
+	 * Level = 1 is next level
+	 * Level = 2 is final level
+	 * */
+	void Upgrade() {
+
 	}
 }
