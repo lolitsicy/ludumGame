@@ -20,7 +20,7 @@ public class PlayerControler : MonoBehaviour {
 	private Rigidbody2D bodyBox;
 	private Transform viewPoint;
 	[HideInInspector] public float x, y, jumpMag, jumpCount = 0;
-
+	public PlayerControler otherPlayer;
 	private float chargeTime = 0f;
 	private int score = 0;
 
@@ -84,9 +84,15 @@ public class PlayerControler : MonoBehaviour {
 			addScore (1);
 			Destroy (coll.gameObject);
 		}
-
+		if (coll.gameObject.tag == "hazard") {
+			otherPlayer.addScore (1);
+			score = 0;
+			Destroy (gameObject);
+		}
 	}
-		
+
+
+
 	void moveRight() {
 		viewPoint.eulerAngles += turnSpeed *(new Vector3 (0f, 0f, -turnSpeed));
 	}
