@@ -181,15 +181,22 @@ MonoBehaviour:
   fullChargeJumpForce: 4000
   minChargeJumpForce: 2000
   maxJumpCount: 3
-  Charging: {fileID: 21300000, guid: 131b231d5e5f74d14be465ecbc64daf1, type: 3}
-  Jumping: {fileID: 21300000, guid: cac70255831c844dcbc4d8f86caf29a0, type: 3}
+  Charging:
+  - {fileID: 21300000, guid: 131b231d5e5f74d14be465ecbc64daf1, type: 3}
+  - {fileID: 21300000, guid: 42d099853586644b8be25099aea27f4f, type: 3}
+  - {fileID: 21300000, guid: 335d09d11e3ee449183726e775c18c0c, type: 3}
+  Jumping:
+  - {fileID: 21300000, guid: cac70255831c844dcbc4d8f86caf29a0, type: 3}
+  - {fileID: 21300000, guid: 903ef393ef60d459db99f0b54810a9ff, type: 3}
+  - {fileID: 21300000, guid: 10569c86a3f97457480a9e4c2f125eeb, type: 3}
   SpawnPoint: {fileID: 0}
   level: 0
   x: 0
   y: 0
   jumpMag: 0
   jumpCount: 0
-  otherPlayer: {fileID: 0}
+  bouncy: {fileID: 0}
+  slippery: {fileID: 0}
 --- !u!212 &21217162
 SpriteRenderer:
   m_ObjectHideFlags: 1

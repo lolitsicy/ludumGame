@@ -16,18 +16,19 @@ public class PlayerControler : MonoBehaviour {
 	public float minChargeJumpForce = 6000f;
 	/** Number of jumps a player can take without touching the wall or the ground */
 	public int maxJumpCount = 2;
-	public Sprite Charging;
-	public Sprite Jumping;
+	public Sprite[] Charging = new Sprite[3];
+	public Sprite[] Jumping = new Sprite[3];
 	public Transform SpawnPoint;
 	public int level = 0;
 	private bool grounded = true;
 	private Rigidbody2D bodyBox;
 	private Transform viewPoint;
 	[HideInInspector] public float x, y, jumpMag, jumpCount = 0;
-	public PlayerControler otherPlayer;
+//	public PlayerControler otherPlayer;
 	private float chargeTime = 0f;
-	private int score;
-	public int levelUpScore;
+	private int score = 0;
+	private SpriteRenderer ren;
+	private int levelUpScore = 5;
 	public PhysicsMaterial2D bouncy;
 	public PhysicsMaterial2D slippery;
 
@@ -46,16 +47,18 @@ public class PlayerControler : MonoBehaviour {
 	void Start ()
 	{
 		score = 0;
-		levelUpScore = 0;
 		bodyBox = gameObject.GetComponent<Rigidbody2D> ();
-		viewPoint = obj.GetComponent<Transform> ();
+		viewPoint = gameObject.GetComponent<Transform> ();
+		ren = gameObject.GetComponent<SpriteRenderer> ();
+		setChargeSprite ();
+
 	}
 		
 	// Update is called once per frame
 	void Update ()
 	{
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
-		float angle = viewPoint.eulerAngles.z;
+		float angle = viewPoint.eulerAngles.z + 90f;
 		x = Mathf.Cos (angle * Mathf.Deg2Rad);
 		y = Mathf.Sin (angle * Mathf.Deg2Rad);
 
@@ -83,6 +86,8 @@ public class PlayerControler : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "wall") {
+			Debug.Log ("DRAW");
+			setChargeSprite ();
 			jumpCount -= 1;
 			if (jumpCount < 1) {
 				jumpCount = 1;
@@ -93,13 +98,18 @@ public class PlayerControler : MonoBehaviour {
 			Destroy (coll.gameObject);
 		}
 		if (coll.gameObject.tag == "hazard") {
-			otherPlayer.addScore (1);
+//			otherPlayer.addScore (1);
 			score = 0;
-			Destroy (gameObject);
+			RespawnPlayer ();
 		}
 	}
 
-
+	void RespawnPlayer () {
+		score = 0;
+		level = 0;
+		viewPoint.position = SpawnPoint.position;
+		viewPoint.eulerAngles = new Vector3 (0f, 0f);
+	}
 
 	void moveRight() {
 		viewPoint.eulerAngles += (new Vector3 (0f, 0f, -turnSpeed));
@@ -114,6 +124,8 @@ public class PlayerControler : MonoBehaviour {
 		jumpMag = (chargeTime / fullChargeJumpTime * (fullChargeJumpForce - minChargeJumpForce)) + minChargeJumpForce;
 		bodyBox.AddForce ((new Vector2 (x*jumpMag,y*jumpMag)));
 		chargeTime = 0f;
+		setJumpSprite ();
+
 	}
 
 	void chargeJump() {
@@ -121,28 +133,48 @@ public class PlayerControler : MonoBehaviour {
 			chargeTime += Time.deltaTime;
 		}
 	}
+	public void setChargeSprite() {
+		ren.sprite = Charging[level];
+	}
+
+	void setJumpSprite() {
+		StartCoroutine(setJumpAnim());
+	}
+
+	IEnumerator setJumpAnim() {
+		Debug.Log ("SET JUMP");
+		ren.sprite = Jumping[level];
+		yield return new WaitForSeconds(1);
+		if (jumpCount < maxJumpCount) {
+			setChargeSprite ();
+		}
+	}
+
 	/**
 	 * Level = 0 is base level
 	 * Level = 1 is next level
 	 * Level = 2 is final level
 	 * */
 	void Upgrade() {
-		if (score%levelUpScore == 0) {
+		if (score % levelUpScore == 0) {
 			level++;
 		}
 
 		switch (level) {
 
 		case 0:
-			gameObject.GetComponent<BoxCollider2D> ().sharedMaterial = bouncy;
+			gameObject.GetComponent<PolygonCollider2D> ().sharedMaterial = bouncy;
+			setChargeSprite ();
 			Debug.Log ("BOUNCY");
 			break;
 		case 1: 
-			gameObject.GetComponent<BoxCollider2D> ().sharedMaterial = bouncy;
+			gameObject.GetComponent<PolygonCollider2D> ().sharedMaterial = bouncy;
+			setChargeSprite ();
 			Debug.Log ("SLIP");
 			break;
 		case 2:
 			maxJumpCount = 4;
+			setChargeSprite ();
 			Debug.Log ("J");
 			break;
 
