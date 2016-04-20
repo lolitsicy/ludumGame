@@ -27,6 +27,7 @@ public class PlayerControler : MonoBehaviour {
 	public int level = 0;
 	/** The score required for the player to upgrade to the next level */
 	public int levelUpScore = 5;
+	public GameObject GameHUD;
 
 	private bool grounded = true;
 	private Rigidbody2D bodyBox;
@@ -35,6 +36,7 @@ public class PlayerControler : MonoBehaviour {
 	private float chargeTime = 0f;
 	private int score = 0;
 	private SpriteRenderer ren;
+	private PlayerHUD HUD;
 
 	/*
 	 * Unity Framework Functions 
@@ -44,6 +46,7 @@ public class PlayerControler : MonoBehaviour {
 		bodyBox = gameObject.GetComponent<Rigidbody2D>();
 		viewPoint = gameObject.GetComponent<Transform>();
 		ren = gameObject.GetComponent<SpriteRenderer>();
+		HUD = GameHUD.GetComponent<PlayerHUD>();
 		setChargeSprite();
 
 	}
@@ -73,7 +76,6 @@ public class PlayerControler : MonoBehaviour {
 		if (Input.GetKeyUp(jumpKey) && jumpCount < maxJumpCount) {
 			jump();
 		}
-		Upgrade();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -88,6 +90,7 @@ public class PlayerControler : MonoBehaviour {
 		if (coll.gameObject.tag == "food") {
 			addScore(1);
 			Destroy(coll.gameObject);
+			Upgrade();
 		}
 		if (coll.gameObject.tag == "hazard") {
 			score = 0;
@@ -100,7 +103,7 @@ public class PlayerControler : MonoBehaviour {
 	 * Accessible functions
 	 */
 	public void setScore(int newScore) {
-		score = newScore;
+		HUD.setScore(newScore);
 	}
 
 	/** 
@@ -108,10 +111,11 @@ public class PlayerControler : MonoBehaviour {
 	 * */
 	public void addScore(int amount) {
 		score += amount;
+		HUD.setScore(score);
 	}
 
 	public int getScore() {
-		return score;
+		return HUD.getScore();
 	}
 
 	/**
@@ -122,6 +126,7 @@ public class PlayerControler : MonoBehaviour {
 		 * Level = 2 is final level
 	 * */
 	public void Upgrade() {
+
 		if (score != 0 && score % levelUpScore == 0) {
 			level++;
 		}
@@ -129,12 +134,12 @@ public class PlayerControler : MonoBehaviour {
 		switch (level) {
 
 		case 0:
-			gameObject.GetComponent<CircleCollider2D>().sharedMaterial = bouncy;
+			gameObject.GetComponent<PolygonCollider2D>().sharedMaterial = bouncy;
 			setChargeSprite();
 			Debug.Log("BOUNCY");
 			break;
 		case 1: 
-			gameObject.GetComponent<CircleCollider2D>().sharedMaterial = bouncy;
+			gameObject.GetComponent<PolygonCollider2D>().sharedMaterial = bouncy;
 			setChargeSprite();
 			Debug.Log("SLIP");
 			break;
@@ -190,8 +195,8 @@ public class PlayerControler : MonoBehaviour {
 	}
 
 	private IEnumerator setJumpAnim() {
-		Debug.Log("SET JUMP");
 		ren.sprite = Jumping[level];
+		Debug.Log("SET JUMP");
 		yield return new WaitForSeconds(1);
 		if (jumpCount < maxJumpCount) {
 			setChargeSprite();
